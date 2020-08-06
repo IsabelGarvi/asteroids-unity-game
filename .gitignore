@@ -1,0 +1,9 @@
+.DS_Store
+Assets/*.meta
+Library/
+ProjectSettings/
+.vs/
+Assets/**/*.meta
+Logs/
+Packages/
+Temp/
