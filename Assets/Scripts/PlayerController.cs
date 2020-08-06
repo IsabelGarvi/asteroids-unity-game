@@ -14,7 +14,6 @@ public class PlayerController : MonoBehaviour
 	// Start is called before the first frame update
     void Start()
     {
-        Debug.Log(life);
     }
 
 	private void controlPlayer(){
@@ -66,7 +65,6 @@ public class PlayerController : MonoBehaviour
         } else {
             // game over
         }
-        Debug.Log(life);
 	}
 
     // Update is called once per frame
