@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-	Vector3 targetDirection = Vector3.zero;
+	private Vector3 targetDirection = Vector3.zero;
+	public GameObject projectile;
 
 	private void movePlayer(){
 		/* Move the ship towards where the mouse is.
@@ -18,7 +19,14 @@ public class PlayerController : MonoBehaviour
 	}
 
 	private void shootProjectile(){
+		targetDirection = get_target_direction();
+		if(Input.GetKeyDown(KeyCode.Space)){
+			GameObject new_projectile = Instantiate(projectile, transform.position, Quaternion.Euler(0,0,0));
+			// new_projectile.transform.parent = gameObject.transform;
+			// new_projectile.transform.position = Vector3.MoveTowards(transform.position, targetDirection, 2 * Time.deltaTime);
+			new_projectile.transform.GetComponent<Rigidbody2D>().velocity = targetDirection * 3;
 
+		}
 	}
 
 	private void lookAtMouse(){
@@ -46,5 +54,6 @@ public class PlayerController : MonoBehaviour
     {
     	movePlayer();
         lookAtMouse();
+        shootProjectile();
     }
 }
