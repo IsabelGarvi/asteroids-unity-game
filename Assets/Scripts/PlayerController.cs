@@ -11,20 +11,20 @@ public class PlayerController : MonoBehaviour
 		/* Move the ship towards where the mouse is.
 		*/
 
-		targetDirection = get_target_direction();
+		targetDirection = getTargetDirection();
 		if(Input.GetKey(KeyCode.W)){
-			transform.position = Vector3.MoveTowards(transform.position, targetDirection, 2 * Time.deltaTime);
+			transform.position = Vector3.MoveTowards(transform.position, targetDirection, 5 * Time.deltaTime);
 		}
 
 	}
 
 	private void shootProjectile(){
-		targetDirection = get_target_direction();
+		targetDirection = getTargetDirection();
 		if(Input.GetKeyDown(KeyCode.Space)){
 			GameObject new_projectile = Instantiate(projectile, transform.position, Quaternion.Euler(0,0,0));
 			// new_projectile.transform.parent = gameObject.transform;
 			// new_projectile.transform.position = Vector3.MoveTowards(transform.position, targetDirection, 2 * Time.deltaTime);
-			new_projectile.transform.GetComponent<Rigidbody2D>().velocity = targetDirection * 3;
+			new_projectile.transform.GetComponent<Rigidbody2D>().velocity = targetDirection * 1f;
 
 		}
 	}
@@ -32,12 +32,12 @@ public class PlayerController : MonoBehaviour
 	private void lookAtMouse(){
 		/* Make the ship look at where the mouse is on the scene
 		*/
-		targetDirection = get_target_direction();
+		targetDirection = getTargetDirection();
 		float rotate = (Mathf.Atan2(targetDirection.y, targetDirection.x) * Mathf.Rad2Deg) - 90f;
 		transform.rotation = Quaternion.Euler(0f, 0f, rotate);
 	}
 
-	private Vector3 get_target_direction(){
+	private Vector3 getTargetDirection(){
 		/* Get the direction towards where the ship will be pointing
 		*/
 		return Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
