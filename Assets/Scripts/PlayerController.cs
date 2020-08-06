@@ -76,10 +76,10 @@ public class PlayerController : MonoBehaviour
         controlPlayer();
     }
 
-    void OnTriggerEnter2D(Collider2D other){
+    void OnCollisionEnter2D(Collision2D other){
 		/* When colliding with an asteroid, lose life.
 		*/
-		switch(other.tag){
+		switch(other.gameObject.tag){
 			case "Asteroid":
 				loseLife();
 				break;
