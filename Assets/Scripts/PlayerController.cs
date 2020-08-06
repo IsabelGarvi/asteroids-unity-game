@@ -1,32 +1,45 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class PlayerController : MonoBehaviour
 {
 	private Vector3 targetDirection = Vector3.zero;
 	public GameObject projectile;
 
-	private void movePlayer(){
-		/* Move the ship towards where the mouse is.
-		*/
+	// Start is called before the first frame update
+    void Start()
+    {
+        
+    }
 
-		targetDirection = getTargetDirection();
+	private void controlPlayer(){
 		if(Input.GetKey(KeyCode.W)){
-			transform.position = Vector3.MoveTowards(transform.position, targetDirection, 5 * Time.deltaTime);
+			movePlayer();
+		}else if(Input.GetKeyDown(KeyCode.Space)){
+			shootProjectile();
 		}
-
 	}
 
-	private void shootProjectile(){
+	private void movePlayer(){
+		/* Move the ship towards where the mouse is on the screen.
+		*/
+		// TODO: fix when ship arrives at target disappearing
 		targetDirection = getTargetDirection();
-		if(Input.GetKeyDown(KeyCode.Space)){
-			GameObject new_projectile = Instantiate(projectile, transform.position, Quaternion.Euler(0,0,0));
-			// new_projectile.transform.parent = gameObject.transform;
-			// new_projectile.transform.position = Vector3.MoveTowards(transform.position, targetDirection, 2 * Time.deltaTime);
-			new_projectile.transform.GetComponent<Rigidbody2D>().velocity = targetDirection * 1f;
-
+		if(transform.position != targetDirection){
+			transform.position = Vector3.MoveTowards(transform.position, targetDirection, 5 * Time.deltaTime);			
 		}
+	}
+
+	// TODO: fix bug here.
+	private void shootProjectile(){
+		/* Shoot a projectile towards where the ship is pointing at when
+		Space Key is pressed down.
+		*/
+		targetDirection = getTargetDirection();
+		GameObject new_projectile = Instantiate(projectile, transform.position, Quaternion.Euler(0,0,0));
+		new_projectile.transform.GetComponent<Rigidbody2D>().velocity = targetDirection * 1f;
 	}
 
 	private void lookAtMouse(){
@@ -40,20 +53,13 @@ public class PlayerController : MonoBehaviour
 	private Vector3 getTargetDirection(){
 		/* Get the direction towards where the ship will be pointing
 		*/
-		return Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+		return Camera.main.ScreenToWorldPoint(Input.mousePosition); //- transform.position;
 	}
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
     {
-    	movePlayer();
         lookAtMouse();
-        shootProjectile();
+        controlPlayer();
     }
 }
