@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
 	// Start is called before the first frame update
     void Start()
     {
+    	transform.position = Vector3.zero;
     }
 
 	private void controlPlayer(){
@@ -61,9 +62,11 @@ public class PlayerController : MonoBehaviour
 	private void loseLife(){
 		life--;
         if (life >= 1) {
-            // respawn to center of the screen with 1 less life.
+            transform.position = Vector3.zero;
+            // update life on GUI
         } else {
             // game over
+            // SceneManager.LoadScene(3);
         }
 	}
 
