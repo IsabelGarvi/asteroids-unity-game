@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 431740780}
   m_Layer: 0
   m_Name: Ship
-  m_TagString: Projectile
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -97,6 +97,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectile: {fileID: 1756216389974029451, guid: f85182897e987465cbfd9133dea56b6f,
+    type: 3}
+  lifeText: {fileID: 2996342278459101860, guid: 07b084573a1ac4bfebaf6649f34551f2,
     type: 3}
 --- !u!50 &431740783
 Rigidbody2D:

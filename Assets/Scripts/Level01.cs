@@ -5,29 +5,30 @@ using UnityEngine;
 public class Level01 : MonoBehaviour
 {
 	public GameObject big_asteroid, ship;
+	private Vector2 screenBounds;
 
     // Start is called before the first frame update
     void Start()
     {
-        // create player at the center of the screen
-        createShip();
-        int big_asteroids_number = Random.Range(5, 10);
+        createShip();   
+        screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
+        int big_asteroids_number = Random.Range(3, 7);
         createBigAsteroids(big_asteroids_number);
-        // initialise GUI
     }
 
     private void createBigAsteroids(int number){
-    	for (int i = 1; i <= number; i++)
-        {
-        	Vector3 position = new Vector3(Random.Range(-10.0f, 10.0f), 0, Random.Range(-10.0f, 10.0f));
-            GameObject new_big_asteroid = Instantiate(big_asteroid, position, transform.rotation);
-            new_big_asteroid.transform.Rotate(new Vector3 (0, 0, Random.Range(0f, 360f)));
+    	for (int i = 1; i <= number; i++){
+    		// TODO: change position to random inside the scene
+        	Vector3 position = new Vector3(Random.Range(-screenBounds.x, screenBounds.x), 0, Random.Range(-screenBounds.y, screenBounds.y));
+            GameObject new_big_asteroid = Instantiate(big_asteroid, position, Quaternion.Euler(0,0,0));
         }
     }
 
     private void createShip(){
     	GameObject new_ship = Instantiate(ship, Vector3.zero, transform.rotation);
     }
+
+    
 
     // Update is called once per frame
     void Update()
