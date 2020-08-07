@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour
 
 	private void loseLife(){
 		life--;
-        if (life >= 1) {
+        if (life > 0) {
             transform.position = Vector3.zero;
             // update life on GUI
         } else {

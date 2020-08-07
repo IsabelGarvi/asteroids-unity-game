@@ -21,6 +21,7 @@ public class Level01 : MonoBehaviour
         {
         	Vector3 position = new Vector3(Random.Range(-10.0f, 10.0f), 0, Random.Range(-10.0f, 10.0f));
             GameObject new_big_asteroid = Instantiate(big_asteroid, position, transform.rotation);
+            new_big_asteroid.transform.Rotate(new Vector3 (0, 0, Random.Range(0f, 360f)));
         }
     }
 
