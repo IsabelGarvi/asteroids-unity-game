@@ -98,7 +98,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectile: {fileID: 1756216389974029451, guid: f85182897e987465cbfd9133dea56b6f,
     type: 3}
-  lifeText: {fileID: 2996342278459101860, guid: 07b084573a1ac4bfebaf6649f34551f2,
+  life_text: {fileID: 572692459592490763, guid: 07b084573a1ac4bfebaf6649f34551f2,
     type: 3}
 --- !u!50 &431740783
 Rigidbody2D:

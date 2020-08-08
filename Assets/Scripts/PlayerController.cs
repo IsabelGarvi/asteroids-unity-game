@@ -9,17 +9,18 @@ public class PlayerController : MonoBehaviour
 {
 	private Vector3 targetDirection;
 	private Level01 level_controller;
+	private Text life_text;
 
 	/* Set variables on Unity GUI*/
 	public GameObject projectile;
-	public Text lifeText;
 
-	private int life = 3 /* number of lives the player has */;
+	private int life = 100;
 
     void Start(){
     	level_controller = GameObject.Find("SceneManager").GetComponent<Level01>();
 		transform.position = Vector3.zero;
-    	showLife(life);
+		life_text = GameObject.Find("Life").GetComponent<Text>();
+    	showLife(100);
     }
 
 	private void controlPlayer(){
@@ -83,14 +84,14 @@ public class PlayerController : MonoBehaviour
 		return Camera.main.ScreenToWorldPoint(Input.mousePosition);
 	}
 
-	private void loseLife(){
+	private void loseLife(int lose){
 		/* Lose 1 life. If the player still has lives left
 		reset its position to the center of the screen, otherwise, game over.
 		*/
-		life--;
+		life -= lose;
         if (life > 0) {
+        	showLife(life);
             transform.position = new Vector3(0f, 0f, 0f);
-            showLife(life);
         } else {
             SceneManager.LoadScene(1);
         }
@@ -99,7 +100,8 @@ public class PlayerController : MonoBehaviour
 	private void showLife(int life){
 		/* Update the LIFE text on screen.
 		*/
-    	lifeText.text = "LIFE: " + life.ToString();
+    	life_text.text = "LIFE: " + life.ToString();
+    	Debug.Log(life_text.text);
     }
 
     void Update(){
@@ -109,13 +111,16 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other){
 		/* When colliding with an asteroid the player loses one life.
-		The asteroid is destroyed.
 		*/
 		switch(other.tag){
-			case "Asteroid":
-				level_controller.total_asteroids--;
-				Destroy(other.gameObject);
-				loseLife();
+			case "Big_Asteroid":
+				loseLife(35);
+				break;
+			case "Medium_Asteroid":
+				loseLife(20);
+				break;
+			case "Small_Asteroid":
+				loseLife(5);
 				break;
 		}
 	}
