@@ -101,7 +101,6 @@ public class PlayerController : MonoBehaviour
 		/* Update the LIFE text on screen.
 		*/
     	life_text.text = "LIFE: " + life.ToString();
-    	Debug.Log(life_text.text);
     }
 
     void Update(){
