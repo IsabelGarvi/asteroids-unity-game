@@ -21,4 +21,4 @@ We have *3* different scenes:
 - Game Over
 
 
-***THE SPRITES ARE THIRD PARTY.***
+***ALL THE SPRITES ARE THIRD PARTY.***
