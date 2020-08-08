@@ -12,3 +12,9 @@ When a **big** asteroid is detroyed by the fire, 2 **medium** ones appear in its
 When a **medium** asteriod is When a BIG asteroid is detroyed by the fire, 2 **small** ones appear in its place.  
 When ***ALL*** asteroids have been destroyed, the level is clear and more BIG asteroids appear.  
 If the player loses all life points, **GAME OVER**.
+
+We have *3* different scenes:
+1. Start
+	- Click on the button to start the game.
+2. Level
+3. Game Over
