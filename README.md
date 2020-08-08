@@ -8,6 +8,7 @@ There are 3 different asteroids:
 - Medium: takes 20 points of life if it hits the ship.
 - Small: takes 5 points of life if it hits the ship.
 
+We start the game with a random number of big asteroids, in a range from 3 to 7.
 When a **big** asteroid is detroyed by the fire, 2 **medium** ones appear in its place.  
 When a **medium** asteriod is When a BIG asteroid is detroyed by the fire, 2 **small** ones appear in its place.  
 When ***ALL*** asteroids have been destroyed, the level is clear and more BIG asteroids appear.  
