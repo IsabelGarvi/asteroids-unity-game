@@ -14,7 +14,7 @@ When ***ALL*** asteroids have been destroyed, the level is clear and more BIG as
 If the player loses all life points, **GAME OVER**.
 
 We have *3* different scenes:  
-0. Start
+- Start
 	- Click on the button to start the game.
-1. Level
-2. Game Over
+- Level
+- Game Over
