@@ -93,7 +93,7 @@ public class PlayerController : MonoBehaviour
         	showLife(life);
             transform.position = new Vector3(0f, 0f, 0f);
         } else {
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene(2);
         }
 	}
 
