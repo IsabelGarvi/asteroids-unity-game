@@ -8,26 +8,29 @@ using System;
 public class PlayerController : MonoBehaviour
 {
 	private Vector3 targetDirection;
-	private Vector2 screenBounds;
+	private Level01 level_controller;
 
-	/* Set the projectile on Unity UI*/
+	/* Set variables on Unity GUI*/
 	public GameObject projectile;
 	public Text lifeText;
 
 	private int life = 3 /* number of lives the player has */;
 
-	// Start is called before the first frame update
     void Start(){
-    	screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
+    	level_controller = GameObject.Find("SceneManager").GetComponent<Level01>();
 		transform.position = Vector3.zero;
     	showLife(life);
     }
 
 	private void controlPlayer(){
+		/* If the player presses key W, the ship moves.
+		If the player presses key Space, the ship fires a projectile.
+		*/
 		if(Input.GetKey(KeyCode.W)){
 			movePlayer();
 			checkPosition();
-		}else if(Input.GetKeyDown(KeyCode.Space)){
+		}
+		if(Input.GetKeyDown(KeyCode.Space)){
 			shootProjectile();
 		}
 	}
@@ -35,20 +38,22 @@ public class PlayerController : MonoBehaviour
 	private void movePlayer(){
 		/* Move the ship towards where the mouse is on the screen.
 		*/
-		// TODO: fix when ship arrives at target disappearing
 		targetDirection = getMousePosition();
 		transform.position = Vector3.MoveTowards(transform.position, new Vector2(targetDirection.x, targetDirection.y), 5 * Time.deltaTime);			
 	}
 
 	private void checkPosition(){
-    	if(transform.position.x > screenBounds.x){
-    		transform.position = new Vector3(-screenBounds.x, transform.position.y, transform.position.z);
-    	}else if(transform.position.x < -screenBounds.x){
-    	    transform.position = new Vector3(screenBounds.x, transform.position.y, transform.position.z);
-    	}else if(transform.position.y > screenBounds.y){
-    		transform.position = new Vector3(transform.position.x, -screenBounds.y, transform.position.z);
-    	}else if(transform.position.y < -screenBounds.y){
-    		transform.position = new Vector3(transform.position.x, screenBounds.y, transform.position.z);
+		/* If the position of the player is outside the boundaries of
+		the scene, the player is transported to the other side of it.
+		*/
+    	if(transform.position.x > level_controller.screenBounds.x){
+    		transform.position = new Vector3(-level_controller.screenBounds.x, transform.position.y, transform.position.z);
+    	}else if(transform.position.x < -level_controller.screenBounds.x){
+    	    transform.position = new Vector3(level_controller.screenBounds.x, transform.position.y, transform.position.z);
+    	}else if(transform.position.y > level_controller.screenBounds.y){
+    		transform.position = new Vector3(transform.position.x, -level_controller.screenBounds.y, transform.position.z);
+    	}else if(transform.position.y < -level_controller.screenBounds.y){
+    		transform.position = new Vector3(transform.position.x, level_controller.screenBounds.y, transform.position.z);
     	}
     }
 
@@ -81,7 +86,6 @@ public class PlayerController : MonoBehaviour
 		reset its position to the center of the screen, otherwise, game over.
 		*/
 		life--;
-		Debug.Log(transform.position);
         if (life > 0) {
             transform.position = new Vector3(0f, 0f, 0f);
             showLife(life);
@@ -102,10 +106,13 @@ public class PlayerController : MonoBehaviour
     }
 
     void OnTriggerEnter2D(Collider2D other){
-		/* When colliding with an asteroid, lose life.
+		/* When colliding with an asteroid the player loses one life.
+		The asteroid is destroyed.
 		*/
 		switch(other.tag){
 			case "Asteroid":
+				level_controller.total_asteroids--;
+				Destroy(other.gameObject);
 				loseLife();
 				break;
 		}

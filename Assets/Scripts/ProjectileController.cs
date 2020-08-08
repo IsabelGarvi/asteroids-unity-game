@@ -16,8 +16,10 @@ public class ProjectileController : MonoBehaviour
     	/* Destroy the projectile after it has traveled for a distance.
     	*/
     	// Vector3 player_position = player.playerPosition();
-    	if (Vector3.Distance(transform.position, ship_position) > 5)
-        Destroy(gameObject);
+    	if (Vector3.Distance(transform.position, ship_position) > 5){
+            Destroy(gameObject);   
+        }
+        
     }
 
     // Update is called once per frame
