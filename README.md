@@ -19,3 +19,6 @@ We have *3* different scenes:
 	- Click on the button to start the game.
 - Level
 - Game Over
+
+
+***THE SPRITES ARE THIRD PARTY.***
