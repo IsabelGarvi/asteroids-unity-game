@@ -64,6 +64,8 @@ public class PlayerController : MonoBehaviour
 		*/
 		targetDirection = getMousePosition();
 		GameObject new_projectile = Instantiate(projectile, transform.position, Quaternion.Euler(0,0,0));
+		float rotate = (Mathf.Atan2(targetDirection.y, targetDirection.x) * Mathf.Rad2Deg) - 90f;
+		new_projectile.transform.rotation = Quaternion.Euler(0f, 0f, rotate);
 		new_projectile.transform.GetComponent<Rigidbody2D>().velocity = targetDirection * 2f;
 	}
 
