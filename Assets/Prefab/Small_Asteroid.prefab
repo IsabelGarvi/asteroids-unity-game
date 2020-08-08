@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6320828071079215881}
   - component: {fileID: 199990086511110550}
   - component: {fileID: 3569903079030805613}
-  - component: {fileID: 4250903933570875554}
+  - component: {fileID: 4441204582782183021}
   m_Layer: 0
   m_Name: Small_Asteroid
   m_TagString: Asteroid
@@ -121,7 +121,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &4250903933570875554
+--- !u!114 &4441204582782183021
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -130,6 +130,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 505867674000597475}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35419df5348b1434cb10f5bb64347de0, type: 3}
+  m_Script: {fileID: 11500000, guid: cb73c0a9b78214986807cd11c588f66c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  medium_asteroid: {fileID: 2054716887813618574, guid: 1fe603520eb84429d801b186a66d5c98,
+    type: 3}
+  small_asteroid: {fileID: 505867674000597475}

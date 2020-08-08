@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using System;
 
 public class PlayerController : MonoBehaviour
@@ -36,16 +37,18 @@ public class PlayerController : MonoBehaviour
 		*/
 		// TODO: fix when ship arrives at target disappearing
 		targetDirection = getMousePosition();
-		if(transform.position != targetDirection){
-			transform.position = Vector3.MoveTowards(transform.position, targetDirection, 5 * Time.deltaTime);			
-		}
+		transform.position = Vector3.MoveTowards(transform.position, new Vector2(targetDirection.x, targetDirection.y), 5 * Time.deltaTime);			
 	}
 
 	private void checkPosition(){
-    	if(transform.position.x > screenBounds.x || transform.position.x < -screenBounds.x){
-    		transform.position = new Vector2(-transform.position.x, transform.position.y);
-    	}else if(transform.position.y > screenBounds.y || transform.position.y < -screenBounds.y){
-    		transform.position = new Vector2(transform.position.x, -transform.position.y);
+    	if(transform.position.x > screenBounds.x){
+    		transform.position = new Vector3(-screenBounds.x, transform.position.y, transform.position.z);
+    	}else if(transform.position.x < -screenBounds.x){
+    	    transform.position = new Vector3(screenBounds.x, transform.position.y, transform.position.z);
+    	}else if(transform.position.y > screenBounds.y){
+    		transform.position = new Vector3(transform.position.x, -screenBounds.y, transform.position.z);
+    	}else if(transform.position.y < -screenBounds.y){
+    		transform.position = new Vector3(transform.position.x, screenBounds.y, transform.position.z);
     	}
     }
 
@@ -56,7 +59,7 @@ public class PlayerController : MonoBehaviour
 		*/
 		targetDirection = getMousePosition();
 		GameObject new_projectile = Instantiate(projectile, transform.position, Quaternion.Euler(0,0,0));
-		new_projectile.transform.GetComponent<Rigidbody2D>().velocity = targetDirection * 1f;
+		new_projectile.transform.GetComponent<Rigidbody2D>().velocity = targetDirection * 2f;
 	}
 
 	private void lookAtMouse(){
@@ -70,35 +73,38 @@ public class PlayerController : MonoBehaviour
 	private Vector3 getMousePosition(){
 		/* Get the mouse position on the screen
 		*/
-		return Camera.main.ScreenToWorldPoint(Input.mousePosition); //- transform.position;
+		return Camera.main.ScreenToWorldPoint(Input.mousePosition);
 	}
 
 	private void loseLife(){
+		/* Lose 1 life. If the player still has lives left
+		reset its position to the center of the screen, otherwise, game over.
+		*/
 		life--;
-		Debug.Log(life);
+		Debug.Log(transform.position);
         if (life > 0) {
-            transform.position = Vector3.zero;
+            transform.position = new Vector3(0f, 0f, 0f);
             showLife(life);
         } else {
-            // game over
-            // SceneManager.LoadScene(3);
+            SceneManager.LoadScene(1);
         }
 	}
 
 	private void showLife(int life){
+		/* Update the LIFE text on screen.
+		*/
     	lifeText.text = "LIFE: " + life.ToString();
     }
 
-    // Update is called once per frame
     void Update(){
         lookAtMouse();
         controlPlayer();
     }
 
-    void OnCollisionEnter2D(Collision2D other){
+    void OnTriggerEnter2D(Collider2D other){
 		/* When colliding with an asteroid, lose life.
 		*/
-		switch(other.gameObject.tag){
+		switch(other.tag){
 			case "Asteroid":
 				loseLife();
 				break;

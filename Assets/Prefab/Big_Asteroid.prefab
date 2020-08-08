@@ -104,7 +104,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!58 &1744047308
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -134,4 +134,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   medium_asteroid: {fileID: 2054716887813618574, guid: 1fe603520eb84429d801b186a66d5c98,
+    type: 3}
+  small_asteroid: {fileID: 505867674000597475, guid: c3872d2ff16334674b0e8e2762a40b9b,
     type: 3}
